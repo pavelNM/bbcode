@@ -30,7 +30,12 @@ func NewHTMLTag(value string) *HTMLTag {
 func (t *HTMLTag) String() string {
 	var value string
 	if len(t.Value) > 0 {
-		value = html.EscapeString(t.Value)
+		if len(t.Name) == 0 {
+			// do not escape text nodes
+			value = t.Value
+		} else {
+			value = html.EscapeString(t.Value)
+		}
 	}
 	var attrString string
 	for key, value := range t.Attrs {
