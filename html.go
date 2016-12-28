@@ -39,7 +39,10 @@ func (t *HTMLTag) String() string {
 	}
 	var attrString string
 	for key, value := range t.Attrs {
-		attrString += " " + key + `="` + strings.Replace(html.EscapeString(value), "\n", "", -1) + `"`
+		if key != "onclick" {
+			value = html.EscapeString(value)
+		}
+		attrString += " " + key + `="` + strings.Replace(value, "\n", "", -1) + `"`
 	}
 	if len(t.Children) > 0 {
 		var childrenString string
