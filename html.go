@@ -71,13 +71,14 @@ func (t *HTMLTag) AppendChild(child *HTMLTag) *HTMLTag {
 }
 
 func InsertNewlines(out *HTMLTag) {
-	return
+	//return
 	if strings.ContainsRune(out.Value, '\n') {
 		parts := strings.Split(out.Value, "\n")
 		for i, part := range parts {
 			if i == 0 {
 				out.Value = parts[i]
 			} else {
+				out.AppendChild(NewlineTag())
 				out.AppendChild(NewlineTag())
 				if len(part) > 0 {
 					out.AppendChild(NewHTMLTag(part))
